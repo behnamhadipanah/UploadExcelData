@@ -1,0 +1,154 @@
+USE [master]
+GO
+/****** Object:  Database [DotNetCore]    Script Date: 3/6/2022 10:57:58 AM ******/
+CREATE DATABASE [DotNetCore]
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'DotNetCore', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL15.MSSQLSERVER\MSSQL\DATA\DotNetCore' , SIZE = 73728KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+ LOG ON 
+( NAME = N'DotNetCore_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL15.MSSQLSERVER\MSSQL\DATA\DotNetCore_log' , SIZE = 73728KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+ WITH CATALOG_COLLATION = DATABASE_DEFAULT
+GO
+ALTER DATABASE [DotNetCore] SET COMPATIBILITY_LEVEL = 150
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [DotNetCore].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [DotNetCore] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [DotNetCore] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [DotNetCore] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [DotNetCore] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [DotNetCore] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [DotNetCore] SET AUTO_CLOSE OFF 
+GO
+ALTER DATABASE [DotNetCore] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [DotNetCore] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [DotNetCore] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [DotNetCore] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [DotNetCore] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [DotNetCore] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [DotNetCore] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [DotNetCore] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [DotNetCore] SET  DISABLE_BROKER 
+GO
+ALTER DATABASE [DotNetCore] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [DotNetCore] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [DotNetCore] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [DotNetCore] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [DotNetCore] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [DotNetCore] SET READ_COMMITTED_SNAPSHOT OFF 
+GO
+ALTER DATABASE [DotNetCore] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [DotNetCore] SET RECOVERY SIMPLE 
+GO
+ALTER DATABASE [DotNetCore] SET  MULTI_USER 
+GO
+ALTER DATABASE [DotNetCore] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [DotNetCore] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [DotNetCore] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [DotNetCore] SET TARGET_RECOVERY_TIME = 60 SECONDS 
+GO
+ALTER DATABASE [DotNetCore] SET DELAYED_DURABILITY = DISABLED 
+GO
+EXEC sys.sp_db_vardecimal_storage_format N'DotNetCore', N'ON'
+GO
+ALTER DATABASE [DotNetCore] SET QUERY_STORE = OFF
+GO
+USE [DotNetCore]
+GO
+/****** Object:  User [AppLogin]    Script Date: 3/6/2022 10:57:59 AM ******/
+CREATE USER [AppLogin] FOR LOGIN [AppLogin] WITH DEFAULT_SCHEMA=[dbo]
+GO
+ALTER ROLE [db_owner] ADD MEMBER [AppLogin]
+GO
+ALTER ROLE [db_datareader] ADD MEMBER [AppLogin]
+GO
+ALTER ROLE [db_datawriter] ADD MEMBER [AppLogin]
+GO
+
+/****** Object:  Schema [Kn]    Script Date: 3/6/2022 10:57:59 AM ******/
+CREATE SCHEMA [Kn]
+GO
+
+/****** Object:  Table [Kn].[ExcelFile]    Script Date: 3/6/2022 10:57:59 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [Kn].[ExcelFile](
+	[Id] [bigint] IDENTITY(1,1) NOT NULL,
+	[Key] [nvarchar](100) NOT NULL,
+	[Person] [nvarchar](20) NOT NULL,
+	[Sales] [decimal](18, 2) NOT NULL,
+	[Date] [date] NOT NULL,
+ CONSTRAINT [PK_ExcelFile] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+
+-- =============================================
+-- Author:		<Author,Behnam Hadipanah>
+-- Create date: <Create Date,2022-03-05>
+-- Description:	<Description, Exec Insert_Into_ExcelFile (@Key,@Person,@Sale,@Date)>
+-- =============================================
+CREATE PROCEDURE [Kn].[Insert_Into_ExcelFile]
+	@Key NVARCHAR(100),
+	@Person NVARCHAR(20)	,
+	@Sales DECIMAL,
+	@Date DATE
+AS
+BEGIN
+	
+	SET NOCOUNT ON;
+	IF NOT EXISTS(
+		SELECT [Key] FROM Kn.ExcelFile WHERE [Key]=@Key
+    ) 
+	BEGIN
+	INSERT INTO Kn.ExcelFile
+	(
+	    [Key],
+	    Person,
+	    Sales,
+	    Date
+	)
+	VALUES
+	(   @Key,      -- Key - nvarchar(100)
+	    @Person,      -- Person - nvarchar(20)
+	    @Sales,        -- Sales - bigint
+	    @Date -- Date - date
+	    )
+	END
+	
+END
+GO
+USE [master]
+GO
+ALTER DATABASE [DotNetCore] SET  READ_WRITE 
+GO

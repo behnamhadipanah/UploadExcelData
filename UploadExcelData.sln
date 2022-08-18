@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32112.339
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UploadExcelData.App", "KavehNegar.App\UploadExcelData.App.csproj", "{AF91891C-1667-49FA-81DA-3E94D47C4FE0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UploadExcelData.Logic", "KavehNegar.Logic\UploadExcelData.Logic.csproj", "{0529AC5A-DF3D-4812-A697-A35E6173643A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AF91891C-1667-49FA-81DA-3E94D47C4FE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF91891C-1667-49FA-81DA-3E94D47C4FE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF91891C-1667-49FA-81DA-3E94D47C4FE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF91891C-1667-49FA-81DA-3E94D47C4FE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0529AC5A-DF3D-4812-A697-A35E6173643A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0529AC5A-DF3D-4812-A697-A35E6173643A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0529AC5A-DF3D-4812-A697-A35E6173643A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0529AC5A-DF3D-4812-A697-A35E6173643A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {16A3527A-CE61-4482-81D7-9D0A99B0C5B9}
+	EndGlobalSection
+EndGlobal
